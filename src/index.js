@@ -11,11 +11,12 @@ const data = read();
 console.log(data);
 
 data.forEach(sheet => {
-  const code = render('template/module.temp', sheet.sheet[0]);
+  const code = render('template/module.temp', sheet);
 
-  const fileParh = path.join(__dirname, `${config.output}/${sheet.name}`);
+  const fileParh = `${config.output}/${sheet.sheetName}.ts`;
 
-  write(fileParh, code);
+  console.log(code);
+  write(path.join(__dirname, fileParh), code);
 });
 
 console.log('---------- build end. ---------- ');
