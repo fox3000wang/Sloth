@@ -12,14 +12,13 @@ function loadTemplate(path) {
 }
 
 function removeComment(code) {
-  // const reg = new RegExp(/<#--([.\s\S]*)-->/g);
-  const reg = new RegExp(`<#--([.\\s\\S]*)-->`);
-  return code.replace(reg, '');
-  //return code.replace(/<#--([.\s\S]*)-->/g, '');
+  // const reg = new RegExp(`<#--([.\\s\\S]*)-->`);
+  // return code.replace(reg, '');
+  return code.replace(/<#--([.\s\S]*)-->/g, '');
 }
 
 function replaceKey(code, key, value) {
-  console.log(`${code}, ${key}, ${value}`);
+  //console.log(`[replaceKey] ${code}, ${key}, ${value}`);
   const reg = new RegExp('#{' + key + '}');
   return code.replace(reg, value);
 }
@@ -27,9 +26,6 @@ function replaceKey(code, key, value) {
 function replaceList(code, key, value) {
   const reg = new RegExp(`<#list ${key}>([.\\s\\S]*)</#list>`);
   code = code.replace(reg, (...[, $1]) => {
-    console.log(`=======> ${$1}`);
-    // console.log(`=======> ${value}`);
-
     result = '';
     value.forEach(element => {
       result += $1;
@@ -37,7 +33,6 @@ function replaceList(code, key, value) {
         result = replaceKey(result, `sheet\\.${key}`, element[key]);
       });
     });
-
     return result;
   });
   return code;
@@ -46,8 +41,6 @@ function replaceList(code, key, value) {
 function render(template, data) {
   let code = loadTemplate(template);
   code = removeComment(code);
-  //console.log(code);
-  //console.log(data);
 
   Object.keys(data).map(key => {
     value = data[key];
