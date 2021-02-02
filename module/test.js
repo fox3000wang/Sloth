@@ -3,4 +3,4 @@ const user = {
   property: 'string',
 };
 
-export default user;
+module.exports = user;

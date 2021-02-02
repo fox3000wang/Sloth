@@ -1,21 +1,21 @@
-const pug = require('pug');
 const path = require('path');
-const fs = require('fs');
-
+const config = require('../config');
 const render = require('./render/simplerender');
 const write = require('./writer/simpleWriter');
-
-const user = {
-  name: 'name',
-  property: 'string',
-};
+const read = require('./reader/xlsxReader');
 
 console.log('---------- build start. ----------');
 
-const code = render('template/module.temp', user);
+const data = read();
 
-const fileParh = path.join(__dirname, `../output/${user.name}.ts`);
+console.log(data);
 
-write(fileParh, code);
+data.forEach(sheet => {
+  const code = render('template/module.temp', sheet.sheet[0]);
+
+  const fileParh = path.join(__dirname, `${config.output}/${sheet.name}`);
+
+  write(fileParh, code);
+});
 
 console.log('---------- build end. ---------- ');
