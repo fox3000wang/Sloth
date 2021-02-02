@@ -15,7 +15,7 @@ data.forEach(sheet => {
 
   const fileParh = `${config.output}/${sheet.sheetName}.ts`;
 
-  console.log(code);
+  console.log(`output: ${code}`);
   write(path.join(__dirname, fileParh), code);
 });
 

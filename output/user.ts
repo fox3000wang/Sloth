@@ -1,6 +1,11 @@
 
 export type user = {
-<#list sheet>
-  #{sheet.name}:#{sheet.property}; //#{sheet.comment}
+
+  name:string; //名字
+
+  age:number; //年龄
+
+  phone:string; //手机
+
 }  
-</#list>
+
