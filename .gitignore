@@ -106,3 +106,5 @@ dist
 ~$DataCenter.xlsx
 
 output/
+
+.DS_Store
