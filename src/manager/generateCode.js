@@ -4,9 +4,13 @@ const config = require('../config');
 const render = require('../render/simplerender');
 const write = require('../writer/simpleWriter');
 
+/**
+ * 一个sheet的数据去递归所有模板生成代码
+ * @param sheet
+ */
 function generateCode(sheet) {
   const templateDir = path.join(__dirname, config.template);
-  //console.log(`[makeOutputDir] ${templateDir}`);
+  //console.log(`[generateCode] ${templateDir}`);
   const dirs = fs.readdirSync(templateDir);
   recursionGenCode(dirs, '', sheet);
 }
@@ -19,7 +23,7 @@ function recursionGenCode(dirs, parentDir, sheet) {
 
     if (dir.endsWith('.temp')) {
       const tempPath = path.join(__dirname, config.template, parentDir, dir);
-      console.log(tempPath);
+      // console.log(`[generateCode] ${tempPath}`);
 
       const outputPath = path.join(
         __dirname,

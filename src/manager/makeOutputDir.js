@@ -2,7 +2,9 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../config');
 
-// 复制模板目录结构
+/**
+ * 复制模板目录结构
+ */
 function makeOutputDir() {
   const templateDir = path.join(__dirname, config.template);
   //console.log(`[makeOutputDir] ${templateDir}`);
