@@ -1,0 +1,8 @@
+
+export const ADD_#u{sheetName}: string = 'ADD_#u{sheetName}';
+
+export const DELETE_#u{sheetName}: string = 'DELETE_#u{sheetName}';
+
+export const SET_#u{sheetName}: string = 'SET_#u{sheetName}';
+
+export const GET_#u{sheetName}: string = 'GET_#u{sheetName}';

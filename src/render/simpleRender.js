@@ -18,13 +18,26 @@ function removeComment(code) {
 }
 
 function replaceKey(code, key, value) {
-  //console.log(`[replaceKey] ${code}, ${key}, ${value}`);
-  const reg = new RegExp('#{' + key + '}');
-  return code.replace(reg, value);
+  // 默认小写下滑线
+  let reg = new RegExp(`#{${key}}`, 'g');
+  code = code.replace(reg, value);
+
+  // 大写下滑线 UpperCase
+  reg = new RegExp(`#u{${key}}`, 'g');
+  code = code.replace(reg, value.toUpperCase());
+
+  // 小驼峰 little camel-case
+  reg = new RegExp(`#l{${key}}`, 'g');
+  code = code.replace(
+    reg,
+    value.replace(/[-\|_](\w)/g, (...[, $1]) => $1.toUpperCase())
+  );
+
+  return code;
 }
 
 function replaceList(code, key, value) {
-  const reg = new RegExp(`<#list ${key}>([.\\s\\S]*)</#list>`);
+  const reg = new RegExp(`<#list ${key}>([.\\s\\S]*)</#list>`, 'g');
   code = code.replace(reg, (...[, $1]) => {
     result = '';
     value.forEach(element => {
@@ -41,6 +54,7 @@ function replaceList(code, key, value) {
 function render(template, data) {
   let code = loadTemplate(template);
   code = removeComment(code);
+  code.toUpperCase;
 
   Object.keys(data).map(key => {
     value = data[key];

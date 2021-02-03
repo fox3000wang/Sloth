@@ -21,7 +21,7 @@ function generateCode(source, target, sheet) {
     const stats = fs.statSync(tempPath);
 
     if (stats.isFile()) {
-      const outputFile = outputPath.replace(`.temp`, `.js`);
+      const outputFile = path.join(target, `${sheet.sheetName}.ts`);
       if (!fs.existsSync(outputFile)) {
         const code = render(tempPath, sheet);
         write(outputFile, code);
