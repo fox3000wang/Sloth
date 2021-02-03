@@ -1,9 +1,9 @@
 const path = require('path');
 
 const config = {
-  xlsxFile: `../../DataCenter.xlsx`,
-  template: `../../template/`,
-  output: `../../output/`,
+  xlsxFile: path.join(__dirname, `../DataCenter.xlsx`),
+  template: path.join(__dirname, `../template/`),
+  output: path.join(__dirname, `../output/`),
   autoClean: true,
 };
 

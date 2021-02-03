@@ -10,16 +10,17 @@
 const XLSX = require('xlsx');
 const path = require('path');
 const fs = require('fs');
-const config = require('../config');
 
 /**
  * 从xls文件里读取数据, 包装好数据返回给render使用
  * @param file
  */
-function read(file) {
-  file = !file ? config.xlsxFile : file;
+function readXlsx(file) {
+  if (!file) {
+    throw new Error(`elsx file is null!`);
+  }
 
-  const buf = fs.readFileSync(path.join(__dirname, file));
+  const buf = fs.readFileSync(file);
   const workbook = XLSX.read(buf, { type: 'buffer' });
 
   const result = [];
@@ -46,4 +47,4 @@ function read(file) {
   return result;
 }
 
-module.exports = read;
+module.exports = readXlsx;

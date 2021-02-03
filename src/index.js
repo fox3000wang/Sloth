@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('./config');
-const read = require('./reader/xlsxReader');
+const readXlsx = require('./reader/xlsxReader');
 const cleanOutput = require('./manager/cleanOutput');
 const makeOutputDir = require('./manager/makeOutputDir');
 const generateCode = require('./manager/generateCode');
@@ -13,16 +13,16 @@ console.log(`[index] ---------- build start. ----------`);
 
 prepareGenerate();
 
-const xlsxData = read();
+const xlsxData = readXlsx(config.xlsxFile);
 xlsxData.forEach(sheet => {
-  generateCode(sheet);
+  generateCode(config.template, config.output, sheet);
 });
 
 console.log(`[index] ---------- build end. ---------- `);
 
 function prepareGenerate() {
   if (config.autoClean) {
-    cleanOutput();
+    cleanOutput(config.output);
   }
-  makeOutputDir();
+  makeOutputDir(config.template, config.output);
 }

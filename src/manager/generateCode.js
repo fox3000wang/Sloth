@@ -8,39 +8,26 @@ const write = require('../writer/simpleWriter');
  * 一个sheet的数据去递归所有模板生成代码
  * @param sheet
  */
-function generateCode(sheet) {
-  const templateDir = path.join(__dirname, config.template);
-  //console.log(`[generateCode] ${templateDir}`);
-  const dirs = fs.readdirSync(templateDir);
-  recursionGenCode(dirs, '', sheet);
-}
+function generateCode(source, target, sheet) {
+  console.log(`[generateCode] ${source}`);
+  const dirs = fs.readdirSync(source);
 
-function recursionGenCode(dirs, parentDir, sheet) {
   dirs.forEach(dir => {
     if (dir.endsWith('.DS_Store')) {
       return;
     }
+    const outputPath = path.join(target, dir);
+    const tempPath = path.join(source, dir);
+    const stats = fs.statSync(tempPath);
 
-    if (dir.endsWith('.temp')) {
-      const tempPath = path.join(__dirname, config.template, parentDir, dir);
-      // console.log(`[generateCode] ${tempPath}`);
-
-      const outputPath = path.join(
-        __dirname,
-        config.output,
-        parentDir,
-        `${sheet.sheetName}.ts`
-      );
-      if (!fs.existsSync(outputPath)) {
+    if (stats.isFile()) {
+      const outputFile = outputPath.replace(`.temp`, `.js`);
+      if (!fs.existsSync(outputFile)) {
         const code = render(tempPath, sheet);
-        write(outputPath, code);
+        write(outputFile, code);
       }
     } else {
-      const tempPath = path.join(__dirname, config.template, parentDir, dir);
-      const dirs = fs.readdirSync(tempPath);
-      if (dirs.length > 0) {
-        recursionGenCode(dirs, `${parentDir}/${dir}`, sheet);
-      }
+      generateCode(tempPath, outputPath, sheet);
     }
   });
 }

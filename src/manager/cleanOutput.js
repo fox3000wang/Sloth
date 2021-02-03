@@ -7,7 +7,7 @@ const config = require('../config');
  * @param {*} root 需要删除的绝对路径
  */
 function cleanOutput(root) {
-  root = !root ? path.join(__dirname, config.output) : root;
+  root = !root ? config.output : root;
 
   dirs = fs.readdirSync(root);
   dirs.forEach(dir => {
@@ -22,5 +22,5 @@ function cleanOutput(root) {
     }
   });
 }
-
 module.exports = cleanOutput;
+//cleanOutput();

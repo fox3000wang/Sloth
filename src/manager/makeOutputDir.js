@@ -4,32 +4,28 @@ const config = require('../config');
 
 /**
  * 复制模板目录结构
+ *
  */
-function makeOutputDir() {
-  const templateDir = path.join(__dirname, config.template);
-  //console.log(`[makeOutputDir] ${templateDir}`);
-  const dirs = fs.readdirSync(templateDir);
-  recursionMakeDir(dirs, '');
-}
+function makeOutputDir(source, target) {
+  console.log(`[makeOutputDir] ${source}`);
+  const dirs = fs.readdirSync(source);
 
-function recursionMakeDir(dirs, parentDir) {
   dirs.forEach(dir => {
     if (dir.endsWith('.DS_Store')) {
       return;
     }
+    const tempPath = path.join(source, dir);
+    const stats = fs.statSync(tempPath);
 
-    if (!dir.endsWith('.temp')) {
-      const outputPath = path.join(__dirname, config.output, parentDir, dir);
+    if (stats.isDirectory()) {
+      const outputPath = path.join(target, dir);
       if (!fs.existsSync(outputPath)) {
         fs.mkdirSync(outputPath);
       }
-      const tempPath = path.join(__dirname, config.template, parentDir, dir);
-      const dirs = fs.readdirSync(tempPath);
-      if (dirs.length > 0) {
-        recursionMakeDir(dirs, `${parentDir}/${dir}`);
-      }
+      makeOutputDir(tempPath, outputPath);
     }
   });
 }
 
 module.exports = makeOutputDir;
+// makeOutputDir(config.template);
