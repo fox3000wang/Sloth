@@ -21,10 +21,25 @@ function generateCode(source, target, sheet) {
     const stats = fs.statSync(tempPath);
 
     if (stats.isFile()) {
-      const outputFile = path.join(target, `${sheet.sheetName}.ts`);
-      if (!fs.existsSync(outputFile)) {
-        const code = render(tempPath, sheet);
-        write(outputFile, code);
+      if (dir.endsWith('.temp')) {
+        // .temp 格式结尾属于模板
+        let subName = dir.replace('.temp', '');
+        subName = subName.replace(/./g, ($0, $1) =>
+          $1 === 0 ? $0.toUpperCase() : $0
+        );
+        const outputFile = path.join(target, `${sheet.sheetName}${subName}.ts`);
+
+        if (!fs.existsSync(outputFile)) {
+          const code = render(tempPath, sheet);
+          write(outputFile, code);
+        }
+      } else {
+        // 其他的都属于配置，只用复制黏贴
+        const outputConfig = path.join(target, dir);
+        if (!fs.existsSync(outputConfig)) {
+          const code = render(tempPath, {});
+          write(outputConfig, code);
+        }
       }
     } else {
       generateCode(tempPath, outputPath, sheet);

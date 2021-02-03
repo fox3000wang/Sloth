@@ -5,18 +5,15 @@
 <#list sheet>
   #{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
-
 // 大写下滑线
 <#list sheet>
-  #u{sheet.name}:#u{sheet.property}; //#u{sheet.comment}
+  #u{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
-
 // 小驼峰
 <#list sheet>
-  #l{sheet.name}:#l{sheet.property}; //#l{sheet.comment}
+  #l{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
-
 // 大驼峰
 <#list sheet>
-  #b{sheet.name}:#b{sheet.property}; //#b{sheet.comment}
+  #b{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>

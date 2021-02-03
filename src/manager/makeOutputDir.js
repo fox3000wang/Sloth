@@ -12,6 +12,7 @@ function makeOutputDir(source, target) {
 
   dirs.forEach(dir => {
     if (dir.endsWith('.DS_Store')) {
+      //fs.unlink(dir); // 索性就直接删掉算了
       return;
     }
     const tempPath = path.join(source, dir);
