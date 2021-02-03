@@ -1,0 +1,22 @@
+<#-- 测试用模板 -->
+<#-- 测试最短匹配，惰性模式 -->
+
+// 默认输出
+<#list sheet>
+  #{sheet.name}:#{sheet.property}; //#{sheet.comment}
+</#list>
+
+// 大写下滑线
+<#list sheet>
+  #u{sheet.name}:#u{sheet.property}; //#u{sheet.comment}
+</#list>
+
+// 小驼峰
+<#list sheet>
+  #l{sheet.name}:#l{sheet.property}; //#l{sheet.comment}
+</#list>
+
+// 大驼峰
+<#list sheet>
+  #b{sheet.name}:#b{sheet.property}; //#b{sheet.comment}
+</#list>

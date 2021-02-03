@@ -14,7 +14,7 @@ function loadTemplate(path) {
 function removeComment(code) {
   // const reg = new RegExp(`<#--([.\\s\\S]*)-->`);
   // return code.replace(reg, '');
-  return code.replace(/<#--([.\s\S]*)-->/g, '');
+  return code.replace(/(<#--)([.\s\S]*?)(-->)/g, '');
 }
 
 function replaceKey(code, key, value) {
@@ -27,17 +27,22 @@ function replaceKey(code, key, value) {
   code = code.replace(reg, value.toUpperCase());
 
   // 小驼峰 little camel-case
+  reg = /[-\|_](\w)/g;
+  const littleCamel = value.replace(reg, (...[, $1]) => $1.toUpperCase());
   reg = new RegExp(`#l{${key}}`, 'g');
-  code = code.replace(
-    reg,
-    value.replace(/[-\|_](\w)/g, (...[, $1]) => $1.toUpperCase())
-  );
+  code = code.replace(reg, littleCamel);
+
+  // 大驼峰 big camel-case
+  const bigCamel =
+    littleCamel.substr(0, 1).toUpperCase() + littleCamel.substr(1);
+  reg = new RegExp(`#b{${key}}`, 'g');
+  code = code.replace(reg, bigCamel);
 
   return code;
 }
 
 function replaceList(code, key, value) {
-  const reg = new RegExp(`<#list ${key}>([.\\s\\S]*)</#list>`, 'g');
+  const reg = new RegExp(`<#list ${key}>([.\\s\\S]*?)(</#list>)`, 'g');
   code = code.replace(reg, (...[, $1]) => {
     result = '';
     value.forEach(element => {

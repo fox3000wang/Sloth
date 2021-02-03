@@ -1,8 +1,4 @@
-<#-- and
-  插值 and 
-  列表 list ist
-  注释
--->
+
 export type #l{sheetName} = {
 <#list sheet>
   #l{sheet.name}:#l{sheet.property}; //#l{sheet.comment}
