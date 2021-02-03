@@ -14,7 +14,7 @@ function loadTemplate(path) {
 function removeComment(code) {
   // const reg = new RegExp(`<#--([.\\s\\S]*)-->`);
   // return code.replace(reg, '');
-  return code.replace(/(<#--)([.\s\S]*?)(-->)/g, '');
+  return code.replace(/(<#--)([.\s\S]*?)(-->)\s/g, '');
 }
 
 function replaceKey(code, key, value) {
@@ -46,11 +46,13 @@ function replaceList(code, key, value) {
   code = code.replace(reg, (...[, $1]) => {
     result = '';
     value.forEach(element => {
-      result += $1;
+      result += $1.replace(/\n/, '');
       Object.keys(element).map(key => {
+        // TODO: 这里还有bug sheet不行写死
         result = replaceKey(result, `sheet\\.${key}`, element[key]);
       });
     });
+    result = result.replace(/\n+$/, '');
     return result;
   });
   return code;

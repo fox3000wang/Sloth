@@ -1,8 +1,10 @@
 <#-- 测试用模板 -->
 <#-- 测试最短匹配，惰性模式 -->
 
+class #b{sheetName} {
 // 默认输出
 <#list sheet>
+
   #{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
 // 大写下滑线
@@ -13,7 +15,10 @@
 <#list sheet>
   #l{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
+
 // 大驼峰
 <#list sheet>
   #b{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
+
+}

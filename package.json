@@ -18,8 +18,7 @@
   },
   "homepage": "https://github.com/fox3000wang/codeGenerater#readme",
   "devDependencies": {
-    "babel-plugin-transform-react-pug": "^7.0.1",
-    "pug": "^3.0.0",
+    "watch": "^1.0.2",
     "xlsx": "^0.16.9"
   }
 }
