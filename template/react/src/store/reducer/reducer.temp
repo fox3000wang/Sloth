@@ -1,0 +1,26 @@
+import { ADD_#u{sheetName}, DELETE_#u{sheetName}, SET_#u{sheetName}, GET_#u{sheetName}} from '../types';
+
+export const chineseReducer = (state: any = page, action: any) => {
+  switch (action.type) {
+    case ADD_#u{sheetName}:
+      return {
+        ...state,
+      };
+    case DELETE_#u{sheetName}:
+      return {
+        ...state,
+      };  
+    case SET_#u{sheetName}:
+      return {
+        ...state,
+      };
+    case GET_#u{sheetName}:
+      return {
+        ...state,
+      };
+    default:
+      return {
+        ...state,
+      };
+  }
+};
