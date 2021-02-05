@@ -1,4 +1,53 @@
-# codeGenerater
+# sloth (code generater)
+
+![](./logo.png)
+
+### 简介
+
+无第三方依赖，纯 js 实现的一个轻量级的模板引擎。
+
+### 示例
+
+数据:
+
+| name         | property | comment |
+| ------------ | -------- | ------- |
+| id           | string   | ID      |
+| chinese_name | string   | 中文名  |
+| english_name | string   | 英文名  |
+| age          | number   | 年龄    |
+| phone        | string   | 手机    |
+
+sheet： user
+
+模板:
+
+```js
+<#-- 测试用模板 -->
+
+class #b{sheetName} {
+<#list sheet>
+  #l{sheet.name}:#{sheet.property}; //#{sheet.comment}
+
+</#list>
+}
+```
+
+输出:
+
+```js
+class User {
+  id: string; //ID
+
+  chineseName: string; //中文名
+
+  englishName: string; //英文名
+
+  age: number; //年龄
+
+  phone: string; //手机
+}
+```
 
 ### 模板语法
 
@@ -12,5 +61,18 @@
 #l{} 小写下滑线 lower case downline
 
 #b{} 大驼峰式 big camel-case
+```
 
+列表:
+
+```
+<#list [listName]>
+  #{listName.aaa} #{listName.bbb}
+</#list>
+```
+
+注释:
+
+```
+<#-- 这段不会输出 -->
 ```
