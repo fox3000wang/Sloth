@@ -20,30 +20,42 @@ function readXlsx(file) {
     throw new Error(`elsx file is null!`);
   }
 
+  //const cellIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ... 'Z'];
+  const cellIndex = [...Array(26)].map((e, i) => String.fromCharCode(65 + i));
+
   const buf = fs.readFileSync(file);
   const workbook = XLSX.read(buf, { type: 'buffer' });
 
   const result = [];
   workbook.SheetNames.forEach(sheetName => {
     const sh = workbook.Sheets[sheetName];
+    const title = [];
     const sheet = [];
 
-    let i = 2;
-    while (sh[`A${i}`] && sh[`B${i}`] && sh[`C${i}`]) {
-      sheet.push({
-        name: sh[`A${i}`].v,
-        property: sh[`B${i}`].v,
-        comment: sh[`C${i}`].v,
+    let i = 0;
+    while (sh[`${cellIndex[i]}1`]) {
+      title.push(sh[`${cellIndex[i++]}1`].v);
+    }
+
+    i = 2;
+    // TODO: 判断条件懒得改了
+    while (sh[`${cellIndex[0]}${i}`] && sh[`${cellIndex[0]}${i}`]) {
+      const data = {};
+      title.forEach((e, j) => {
+        data[e] = sh[`${cellIndex[j]}${i}`].v;
       });
+      console.log(data);
+      sheet.push(data);
       i++;
     }
-    //console.log(`[read] ${sheet}`);
+
     result.push({
       sheetName,
       sheet,
     });
   });
 
+  // console.log(result);
   return result;
 }
 

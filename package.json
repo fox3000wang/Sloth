@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "d": "node src/index.js"
+    "d": "node src/index.js",
+    "dev": "node src/index.js",
+    "w": "nodemon src/index.js",
+    "watch": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +21,7 @@
   },
   "homepage": "https://github.com/fox3000wang/codeGenerater#readme",
   "devDependencies": {
+    "nodemon": "^2.0.7",
     "watch": "^1.0.2",
     "xlsx": "^0.16.9"
   }
