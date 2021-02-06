@@ -14,8 +14,6 @@ function loadTemplate(path:string):string {
 }
 
 function removeComment(code:string):string {
-  // const reg = new RegExp(`<#--([.\\s\\S]*)-->`);
-  // return code.replace(reg, '');
   return code.replace(/(<#--)([.\s\S]*?)(-->)\s/g, '');
 }
 

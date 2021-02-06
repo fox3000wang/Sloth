@@ -54,7 +54,6 @@ function readXlsx(file:string) {
     });
   });
 
-  // console.log(result);
   return result;
 }
 
