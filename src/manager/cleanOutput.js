@@ -17,12 +17,24 @@ function cleanOutput(root) {
     if (stats.isFile()) {
       fs.unlinkSync(outputPath);
     } else {
-      //if (config.ignoreDir.indexOf(dir) === -1) { //TODO: 判断需要过滤的目录逻辑要改
-      cleanOutput(outputPath);
-      fs.rmdirSync(outputPath);
-      //}
+      if (!isignore(outputPath)) {
+        cleanOutput(outputPath);
+        fs.rmdir(outputPath, e => {
+          // console.log(e); // directory not empty 直接无视
+        });
+      }
     }
   });
+}
+
+function isignore(outputPath) {
+  let result = false;
+  config.ignoreDir.forEach(e => {
+    if (outputPath.indexOf(e) >= 0) {
+      result = true;
+    }
+  });
+  return result;
 }
 
 module.exports = cleanOutput;
