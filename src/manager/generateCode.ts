@@ -28,7 +28,7 @@ function generateCode(source:string, target:string, sheet:any) {
         subName = subName.replace(/./g, ($0, $1) =>
           $1 === 0 ? $0.toUpperCase() : $0
         );
-        const outputFile = path.join(target, `${sheet.sheetName}${subName}.ts`);
+        const outputFile = path.join(target, `${sheet.sheetName}${subName}`);
 
         if (!fs.existsSync(outputFile)) {
           const code = render(tempPath, sheet);

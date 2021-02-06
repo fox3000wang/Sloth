@@ -1,4 +1,3 @@
-// const path = require('path');
 import path from 'path';
 
 const config:any = {
@@ -11,9 +10,8 @@ const config:any = {
   // 是否自动清理文件
   autoClean: true,
   //autoClean: false,
-  // 过滤输出目录
+  // 过滤输出目录, 绝对路径下含有以下字段则保留。
   ignoreDir: ['node_modules'],
 };
 
-// module.exports = config;
 export default config;

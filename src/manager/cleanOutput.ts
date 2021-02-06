@@ -7,7 +7,7 @@ import config from '../config';
  * @param {*} target 需要删除的绝对路径
  */
 function cleanOutput(target:string):void {
-  console.log(`[makeOutputDir] ${target}`);
+  console.log(`[cleanOutput] ${target}`);
   if(!target){
     throw Error(`target can't be null`);
   }

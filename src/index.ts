@@ -26,8 +26,7 @@ function prepareGenerate() {
   makeOutputDir(config.template, config.output);
 }
 
-
-fs.watch(config.template, main);
+// fs.watch(config.template, main);
 watch.watchTree(config.template, function (f:any, curr:any, prev:any) {
   if (typeof f == 'object' && prev === null && curr === null) {
     // Finished walking the tree
