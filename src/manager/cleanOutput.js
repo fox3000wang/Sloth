@@ -17,10 +17,13 @@ function cleanOutput(root) {
     if (stats.isFile()) {
       fs.unlinkSync(outputPath);
     } else {
+      //if (config.ignoreDir.indexOf(dir) === -1) { //TODO: 判断需要过滤的目录逻辑要改
       cleanOutput(outputPath);
       fs.rmdirSync(outputPath);
+      //}
     }
   });
 }
+
 module.exports = cleanOutput;
 //cleanOutput();

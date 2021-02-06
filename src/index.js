@@ -6,8 +6,6 @@ const readXlsx = require('./reader/xlsxReader');
 const cleanOutput = require('./manager/cleanOutput');
 const makeOutputDir = require('./manager/makeOutputDir');
 const generateCode = require('./manager/generateCode');
-const render = require('./render/simplerender');
-const write = require('./writer/simpleWriter');
 
 function main() {
   console.log(`[main] ---------- build start. ----------`);
@@ -27,7 +25,7 @@ function prepareGenerate() {
   makeOutputDir(config.template, config.output);
 }
 
-fs.watch(config.rootPath, main);
+fs.watch(config.template, main);
 watch.watchTree(config.template, function (f, curr, prev) {
   if (typeof f == 'object' && prev === null && curr === null) {
     // Finished walking the tree
