@@ -12,6 +12,8 @@ const config:any = {
   //autoClean: false,
   // 过滤输出目录, 绝对路径下含有以下字段则保留。
   ignoreDir: ['node_modules'],
+  // 过滤系统无用文件
+  ignoreFiles: ['.DS_Store'],
 };
 
 export default config;

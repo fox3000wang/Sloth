@@ -15,8 +15,8 @@ function generateCode(source:string, target:string, sheet:any) {
   console.log(`[generateCode] ${source}`);
   const dirs = fs.readdirSync(source);
 
-  dirs.forEach(dir => {
-    if (dir.endsWith('.DS_Store')) {
+  dirs.forEach((dir:string) => {
+    if(config.ignoreFiles.indexOf(dir) > 0){  
       return;
     }
     const outputPath = path.join(target, dir);
