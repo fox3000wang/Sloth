@@ -1,6 +1,7 @@
-const path = require('path');
+// const path = require('path');
+import path from 'path';
 
-const config = {
+const config:any = {
   // 输出目录不能放在项目内，不然热更新会死循环
   output: path.join(__dirname, `../../output/`),
   // 模板目录存放路径
@@ -14,4 +15,5 @@ const config = {
   ignoreDir: ['node_modules'],
 };
 
-module.exports = config;
+// module.exports = config;
+export default config;

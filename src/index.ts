@@ -1,18 +1,19 @@
-const fs = require('fs');
-const path = require('path');
-const config = require('./config');
 const watch = require('watch');
-const readXlsx = require('./reader/xlsxReader');
-const cleanOutput = require('./manager/cleanOutput');
-const makeOutputDir = require('./manager/makeOutputDir');
-const generateCode = require('./manager/generateCode');
+import fs from 'fs';
+import path from 'path';
+import config from './config';
+import readXlsx from './reader/xlsxReader';
+import cleanOutput from './manager/cleanOutput';
+import makeOutputDir from './manager/makeOutputDir';
+import generateCode from './manager/generateCode';
+
 
 function main() {
   console.log(`[main] ---------- build start. ----------`);
   prepareGenerate();
 
   const xlsxData = readXlsx(config.xlsxFile);
-  xlsxData.forEach(sheet => {
+  xlsxData.forEach((sheet:any) => {
     generateCode(config.template, config.output, sheet);
   });
   console.log(`[main] ---------- build end. ----------`);
@@ -25,8 +26,9 @@ function prepareGenerate() {
   makeOutputDir(config.template, config.output);
 }
 
+
 fs.watch(config.template, main);
-watch.watchTree(config.template, function (f, curr, prev) {
+watch.watchTree(config.template, function (f:any, curr:any, prev:any) {
   if (typeof f == 'object' && prev === null && curr === null) {
     // Finished walking the tree
   } else if (prev === null) {

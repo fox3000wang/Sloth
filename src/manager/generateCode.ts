@@ -1,14 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-const config = require('../config');
-const render = require('../render/simplerender');
-const write = require('../writer/simpleWriter');
+import fs from 'fs';
+import path from 'path';
+import config from '../config';
+
+import render from '../render/simplerender';
+import write from '../writer/simpleWriter';
 
 /**
  * 一个sheet的数据去递归所有模板生成代码
  * @param sheet
  */
-function generateCode(source, target, sheet) {
+function generateCode(source:string, target:string, sheet:any) {
   console.log(`[generateCode] ${source}`);
   const dirs = fs.readdirSync(source);
 
@@ -47,4 +48,4 @@ function generateCode(source, target, sheet) {
   });
 }
 
-module.exports = generateCode;
+export default generateCode;

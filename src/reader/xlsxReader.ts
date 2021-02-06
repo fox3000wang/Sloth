@@ -7,15 +7,14 @@
  * Excel引用样式(单元格地址)： cellAddress
  * 单元格：cell
  */
-const XLSX = require('xlsx');
-const path = require('path');
-const fs = require('fs');
+import fs from 'fs';
+import XLSX from 'XLSX';
 
 /**
  * 从xls文件里读取数据, 包装好数据返回给render使用
  * @param file
  */
-function readXlsx(file) {
+function readXlsx(file:string) {
   if (!file) {
     throw new Error(`elsx file is null!`);
   }
@@ -26,7 +25,7 @@ function readXlsx(file) {
   const buf = fs.readFileSync(file);
   const workbook = XLSX.read(buf, { type: 'buffer' });
 
-  const result = [];
+  const result:Array<object> = [];
   workbook.SheetNames.forEach(sheetName => {
     const sh = workbook.Sheets[sheetName];
     const title = [];
@@ -40,11 +39,11 @@ function readXlsx(file) {
     i = 2;
     // TODO: 判断条件懒得改了
     while (sh[`${cellIndex[0]}${i}`] && sh[`${cellIndex[0]}${i}`]) {
-      const data = {};
+      const data:any = {};
       title.forEach((e, j) => {
         data[e] = sh[`${cellIndex[j]}${i}`].v;
       });
-      console.log(data);
+      console.log(`[readXlsx]`, data);
       sheet.push(data);
       i++;
     }
@@ -59,4 +58,4 @@ function readXlsx(file) {
   return result;
 }
 
-module.exports = readXlsx;
+export default readXlsx;

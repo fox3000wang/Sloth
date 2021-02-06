@@ -1,15 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-const config = require('../config');
+import fs from 'fs';
+import path from 'path';
+import config from '../config';
 
 /**
  * 复制模板目录结构
- *
  */
-function makeOutputDir(source, target) {
+function makeOutputDir(source:string, target:string) {
   console.log(`[makeOutputDir] ${source}`);
-  const dirs = fs.readdirSync(source);
+  if(!source){
+    throw Error(`source can't be null`);
+  }
+  if(!target){
+    throw Error(`target can't be null`);
+  }
 
+  const dirs = fs.readdirSync(source);
   dirs.forEach(dir => {
     if (dir.endsWith('.DS_Store')) {
       //fs.unlink(dir); // 索性就直接删掉算了
@@ -28,5 +33,5 @@ function makeOutputDir(source, target) {
   });
 }
 
-module.exports = makeOutputDir;
+export default makeOutputDir;
 // makeOutputDir(config.template);

@@ -4,20 +4,20 @@
   列表 <#list > </#>
   注释 <#-- 和 -->
 */
-const fs = require('fs');
+import fs from 'fs';
 
-function loadTemplate(path) {
+function loadTemplate(path:string):string {
   const file = fs.readFileSync(path);
   return file.toString();
 }
 
-function removeComment(code) {
+function removeComment(code:string):string {
   // const reg = new RegExp(`<#--([.\\s\\S]*)-->`);
   // return code.replace(reg, '');
   return code.replace(/(<#--)([.\s\S]*?)(-->)\s/g, '');
 }
 
-function replaceKey(code, key, value) {
+function replaceKey(code:string, key:string, value:string):string {
   // 默认小写下滑线
   let reg = new RegExp(`#{${key}}`, 'g');
   code = code.replace(reg, value);
@@ -33,7 +33,7 @@ function replaceKey(code, key, value) {
   code = code.replace(reg, littleCamel);
 
   // 大驼峰 big camel-case
-  const bigCamel =
+  const bigCamel:string =
     littleCamel.substr(0, 1).toUpperCase() + littleCamel.substr(1);
   reg = new RegExp(`#b{${key}}`, 'g');
   code = code.replace(reg, bigCamel);
@@ -41,10 +41,10 @@ function replaceKey(code, key, value) {
   return code;
 }
 
-function replaceList(code, key, value) {
+function replaceList(code:string, key:string, value:[]):string {
   const reg = new RegExp(`<#list ${key}>([.\\s\\S]*?)(</#list>)`, 'g');
   code = code.replace(reg, (...[, $1]) => {
-    result = '';
+    let result:string = '';
     value.forEach(element => {
       result += $1.replace(/\n/, '');
       Object.keys(element).map(key => {
@@ -58,13 +58,13 @@ function replaceList(code, key, value) {
   return code;
 }
 
-function render(template, data) {
-  let code = loadTemplate(template);
+function render(template:string, data:any):string {
+  let code:string = loadTemplate(template);
   code = removeComment(code);
   code.toUpperCase;
 
   Object.keys(data).map(key => {
-    value = data[key];
+    const value = data[key];
 
     if (typeof value === 'string') {
       code = replaceKey(code, key, value);
@@ -77,4 +77,4 @@ function render(template, data) {
   return code;
 }
 
-module.exports = render;
+export default render;
