@@ -29,7 +29,7 @@ function readXlsx(file:string) {
   workbook.SheetNames.forEach(sheetName => {
     const sh = workbook.Sheets[sheetName];
     const title = [];
-    const sheet = [];
+    const table = [];
 
     let i = 0;
     while (sh[`${cellIndex[i]}1`]) {
@@ -44,13 +44,13 @@ function readXlsx(file:string) {
         data[e] = sh[`${cellIndex[j]}${i}`].v;
       });
       console.log(`[readXlsx]`, data);
-      sheet.push(data);
+      table.push(data);
       i++;
     }
 
     result.push({
-      sheetName,
-      sheet,
+      tableName:sheetName,
+      table,
     });
   });
 

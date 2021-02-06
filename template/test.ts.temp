@@ -1,23 +1,23 @@
 <#-- 测试用模板 -->
 <#-- 测试最短匹配，惰性模式 -->
 
-class #b{sheetName} {
+class #b{tableName} {
 // 默认输出
-<#list sheet>
+<#list table>
 
-#{sheet.name}:#{sheet.property}; //#{sheet.comment}
+#{table.name}:#{table.property}; //#{table.comment}
 </#list>
 // 大写下滑线
-<#list sheet>
-  #u{sheet.name}:#{sheet.property}; //#{sheet.comment}
+<#list table>
+  #u{table.name}:#{table.property}; //#{table.comment}
 </#list>
 // 小驼峰
-<#list sheet>
-  #l{sheet.name}:#{sheet.property}; //#{sheet.comment}
+<#list table>
+  #l{table.name}:#{table.property}; //#{table.comment}
 </#list>
 
 // 大驼峰
-<#list sheet>
-  #b{sheet.name}:#{sheet.property}; //#{sheet.comment}
+<#list table>
+  #b{table.name}:#{table.property}; //#{table.comment}
 </#list>
 }

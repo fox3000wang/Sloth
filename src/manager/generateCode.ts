@@ -6,12 +6,12 @@ import render from '../render/simplerender';
 import write from '../writer/simpleWriter';
 
 /**
- * 一个sheet的数据去递归所有模板生成代码
+ * 递归所有模板生成代码
  * @param source 模板绝对路径
  * @param target 输出绝对路径
- * @param sheet 数据
+ * @param table 数据
  */
-function generateCode(source:string, target:string, sheet:any) {
+function generateCode(source:string, target:string, table:any) {
   console.log(`[generateCode] ${source}`);
   const dirs = fs.readdirSync(source);
 
@@ -30,12 +30,10 @@ function generateCode(source:string, target:string, sheet:any) {
         subName = subName.replace(/./g, ($0, $1) =>
           $1 === 0 ? $0.toUpperCase() : $0
         );
-        const outputFile = path.join(target, `${sheet.sheetName}${subName}`);
+        const outputFile = path.join(target, `${table.tableName}${subName}`);
 
         if (!fs.existsSync(outputFile)) {
-          generateFile(tempPath, outputFile, sheet);
-          // const code = render(tempPath, sheet);
-          // write(outputFile, code);
+          generateFile(tempPath, outputFile, table);
         }
       } else {
         // 其他的都属于配置，只用复制黏贴
@@ -46,7 +44,7 @@ function generateCode(source:string, target:string, sheet:any) {
         }
       }
     } else {
-      generateCode(tempPath, outputPath, sheet);
+      generateCode(tempPath, outputPath, table);
     }
   });
 }

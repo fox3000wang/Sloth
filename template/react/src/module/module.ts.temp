@@ -1,7 +1,7 @@
 
-export type #l{sheetName} = {
-<#list sheet>
+export type #l{tableName} = {
+<#list table>
 
-  #l{sheet.name}:#l{sheet.property}; //#l{sheet.comment}
+  #l{table.name}:#l{table.property}; //#l{table.comment}
 </#list>
 }

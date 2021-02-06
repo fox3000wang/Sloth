@@ -2,19 +2,19 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-function #b{sheetName}(props: any) {
+function #b{tableName}(props: any) {
   const history = useHistory();
 
   useEffect(() => {
-    const { #l{sheetName} } = props;
+    const { #l{tableName} } = props;
   });
 
   return (
     <div>
-<#list sheet>
+<#list table>
       <div>
-        <div>#{sheet.comment}</div>
-        <div>#l{sheet.name}</div>
+        <div>#{table.comment}</div>
+        <div>#l{table.name}</div>
       </div>
 </#list>
     </div>
@@ -25,4 +25,4 @@ export default connect(state => {
   return {
     ...state,
   };
-})(#b{sheetName});
+})(#b{tableName});

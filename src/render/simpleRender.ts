@@ -6,6 +6,7 @@
 */
 import fs from 'fs';
 import { toLittleCamelCase, toBigCamelCase } from '../utils/stringUtil';
+import config from '../config';
 
 function loadTemplate(path:string):string {
   const file = fs.readFileSync(path);
@@ -45,8 +46,7 @@ function replaceList(code:string, key:string, value:[]):string {
     value.forEach(element => {
       result += $1.replace(/\n/, '');
       Object.keys(element).map(key => {
-        // TODO: 这里还有bug sheet不行写死
-        result = replaceKey(result, `sheet\\.${key}`, element[key]);
+        result = replaceKey(result, `${config.dataSource}\\.${key}`, element[key]);
       });
     });
     result = result.replace(/\n+$/, '');

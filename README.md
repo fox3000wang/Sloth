@@ -8,7 +8,7 @@
 
 ### 示例
 
-数据:
+数据源:
 
 | name         | property | comment |
 | ------------ | -------- | ------- |
@@ -18,16 +18,16 @@
 | age          | number   | 年龄    |
 | phone        | string   | 手机    |
 
-sheet： user
+tableName： user
 
 模板:
 
 ```js
 <#-- 测试用模板 -->
 
-class #b{sheetName} {
-<#list sheet>
-  #l{sheet.name}:#{sheet.property}; //#{sheet.comment}
+class #b{tableName} {
+<#list table>
+  #l{table.name}:#{table.property}; //#{table.comment}
 
 </#list>
 }
