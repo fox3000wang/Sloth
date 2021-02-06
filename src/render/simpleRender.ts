@@ -5,6 +5,7 @@
   注释 <#-- 和 -->
 */
 import fs from 'fs';
+import { toLittleCamelCase, toBigCamelCase } from '../utils/stringUtil';
 
 function loadTemplate(path:string):string {
   const file = fs.readFileSync(path);
@@ -27,16 +28,12 @@ function replaceKey(code:string, key:string, value:string):string {
   code = code.replace(reg, value.toUpperCase());
 
   // 小驼峰 little camel-case
-  reg = /[-\|_](\w)/g;
-  const littleCamel = value.replace(reg, (...[, $1]) => $1.toUpperCase());
   reg = new RegExp(`#l{${key}}`, 'g');
-  code = code.replace(reg, littleCamel);
+  code = code.replace(reg, toLittleCamelCase(value));
 
   // 大驼峰 big camel-case
-  const bigCamel:string =
-    littleCamel.substr(0, 1).toUpperCase() + littleCamel.substr(1);
   reg = new RegExp(`#b{${key}}`, 'g');
-  code = code.replace(reg, bigCamel);
+  code = code.replace(reg, toBigCamelCase(value));
 
   return code;
 }

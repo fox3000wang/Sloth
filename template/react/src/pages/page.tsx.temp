@@ -1,0 +1,28 @@
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
+function #b{sheetName}(props: any) {
+  const history = useHistory();
+
+  useEffect(() => {
+    const { #l{sheetName} } = props;
+  });
+
+  return (
+    <div>
+<#list sheet>
+      <div>
+        <div>#{sheet.comment}</div>
+        <div>#l{sheet.name}</div>
+      </div>
+</#list>
+    </div>
+  );
+}
+
+export default connect(state => {
+  return {
+    ...state,
+  };
+})(#b{sheetName});

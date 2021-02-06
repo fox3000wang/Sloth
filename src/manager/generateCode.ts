@@ -7,7 +7,9 @@ import write from '../writer/simpleWriter';
 
 /**
  * 一个sheet的数据去递归所有模板生成代码
- * @param sheet
+ * @param source 模板绝对路径
+ * @param target 输出绝对路径
+ * @param sheet 数据
  */
 function generateCode(source:string, target:string, sheet:any) {
   console.log(`[generateCode] ${source}`);
@@ -31,8 +33,9 @@ function generateCode(source:string, target:string, sheet:any) {
         const outputFile = path.join(target, `${sheet.sheetName}${subName}`);
 
         if (!fs.existsSync(outputFile)) {
-          const code = render(tempPath, sheet);
-          write(outputFile, code);
+          generateFile(tempPath, outputFile, sheet);
+          // const code = render(tempPath, sheet);
+          // write(outputFile, code);
         }
       } else {
         // 其他的都属于配置，只用复制黏贴
@@ -46,6 +49,18 @@ function generateCode(source:string, target:string, sheet:any) {
       generateCode(tempPath, outputPath, sheet);
     }
   });
+}
+
+/**
+ * 生成一个文件
+ * @param source 模板
+ * @param target 输出
+ * @param data 数据
+ */
+export function generateFile(source:string, target:string, data:any):void{
+  console.log(`[generateFile] ${target}`);
+  const code = render(source, data);
+  write(target, code);
 }
 
 export default generateCode;

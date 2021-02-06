@@ -5,7 +5,7 @@ class #b{sheetName} {
 // 默认输出
 <#list sheet>
 
-  #{sheet.name}:#{sheet.property}; //#{sheet.comment}
+#{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
 // 大写下滑线
 <#list sheet>
@@ -20,5 +20,4 @@ class #b{sheetName} {
 <#list sheet>
   #b{sheet.name}:#{sheet.property}; //#{sheet.comment}
 </#list>
-
 }
