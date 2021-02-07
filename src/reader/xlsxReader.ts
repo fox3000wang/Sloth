@@ -37,7 +37,7 @@ function readXlsx(file:string) {
     }
 
     i = 2;
-    // TODO: 判断条件懒得改了
+    // TODO: 判断条件懒得改了,只要前两项有一个为空,就终止
     while (sh[`${cellIndex[0]}${i}`] && sh[`${cellIndex[0]}${i}`]) {
       const data:any = {};
       title.forEach((e, j) => {
