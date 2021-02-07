@@ -8,8 +8,9 @@ import fs from 'fs';
 import { toLittleCamelCase, toBigCamelCase } from '../utils/stringUtil';
 import config from '../config';
 
-function loadTemplate(path:string):string {
+export function loadFile(path:string):string {
   const file = fs.readFileSync(path);
+  //console.log(`[loadFile] ${file.toString()}`);
   return file.toString();
 }
 
@@ -63,8 +64,8 @@ export function replaceList(code:string, key:string, value:Array<any>):string {
   return code;
 }
 
-export function render(template:string, data:any):string {
-  let code:string = loadTemplate(template);
+function render(template:string, data:any):string {
+  let code:string = loadFile(template);
   code = removeComment(code);
   code.toUpperCase;
 

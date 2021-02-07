@@ -5,6 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "jest",
+    "t": "npm t -- --watch.",
     "d": "node src/index.ts",
     "dev": "node src/index.ts",
     "w": "nodemon src/index.ts",

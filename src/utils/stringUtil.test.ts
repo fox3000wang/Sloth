@@ -1,4 +1,4 @@
-import {toLittleCamelCase, toBigCamelCase} from './stringUtil';
+import { toLittleCamelCase, toBigCamelCase, toLineCase } from './stringUtil';
 
 test('toLittleCamelCase', () => {
   expect(toLittleCamelCase('hello_world_my_jest'))
@@ -8,4 +8,9 @@ test('toLittleCamelCase', () => {
 test('toBigCamelCase', () => {
   expect(toBigCamelCase('hello_world_my_jest'))
   .toBe('HelloWorldMyJest');
+});
+
+test('toLineCase', () => {
+  expect(toLineCase('HelloWorldMyJest'))
+  .toBe('hello_world_my_jest');
 });

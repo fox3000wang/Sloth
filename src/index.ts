@@ -5,11 +5,13 @@ import cleanOutput from './manager/cleanOutput';
 import makeOutputDir from './manager/makeOutputDir';
 import generateCode, {generateFile} from './manager/generateCode';
 import { toBigCamelCase } from './utils/stringUtil';
+import generateColumnCode from './manager/generateColumnCode';
 
 let xlsxData:any;
 
-function main() {
+async function main() {
   console.log(`[main] ---------- build start. ----------`);
+  
   if (config.autoClean) {
     cleanOutput(config.output);
   }
@@ -18,12 +20,14 @@ function main() {
   xlsxData = readXlsx(config.xlsxFile);
   xlsxData.forEach((sheet:any) => {
     generateCode(config.template, config.output, sheet);
+    generateColumnCode(config.template, config.output, sheet.tableName);
+
   });
   console.log(`[main] ---------- build end. ----------`);
 }
 
 // watch模板变化
-watch.watchTree(config.template, function (file:any, curr:any, prev:any) {
+watch.watchTree(config.template, function (file:string, curr:any, prev:any) {
   console.log(`[watch.watchTree] ${file} ${curr} ${prev}`);
   if (typeof file == 'object' && prev === null && curr === null) {
     // Finished walking the tree
@@ -33,17 +37,26 @@ watch.watchTree(config.template, function (file:any, curr:any, prev:any) {
     // f was removed
   } else {
     // f was changed
-    console.log(`file was changed`);
-    
-    xlsxData.forEach((sheet:any) => {
-      let outputFile:string = file.replace(config.template, config.output)
-      outputFile = outputFile.replace('.temp', '');
-      
-      let index:number = outputFile.lastIndexOf('/');
-      outputFile = outputFile.substr(0,index+1) + sheet.sheetName + toBigCamelCase(outputFile.substr(index+1));  
-      generateFile(file, outputFile, sheet);
-    });
+    console.log(`[watch.watchTree] file was changed`);
+    if(file.endsWith(config.general.suffix)){
+      reloadData(file);
+    }
+    if(file.endsWith(config.column.suffix)){
+      // reloadData(file); 这里还有bug
+    }
   }
 });
+
+const reloadData = (file:string) => {
+  xlsxData.forEach((sheet:any) => {
+    let outputFile:string = file.replace(config.template, config.output)
+    outputFile = outputFile.replace(config.general.suffix, '');
+    
+    let index:number = outputFile.lastIndexOf('/');
+    outputFile = outputFile.substr(0,index+1) + sheet.sheetName + toBigCamelCase(outputFile.substr(index+1));  
+    generateFile(file, outputFile, sheet);
+  });
+}
+
 
 main();

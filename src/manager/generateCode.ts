@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import config from '../config';
-
-import render from '../render/simplerender';
+import render, { loadFile } from '../render/generalRender';
+import { toBigCamelCase, toLittleCamelCase } from '../utils/stringUtil';
 import write from '../writer/simpleWriter';
-import { toBigCamelCase } from '../utils/stringUtil';
+
 
 /**
  * 递归所有模板生成代码
@@ -14,13 +14,12 @@ import { toBigCamelCase } from '../utils/stringUtil';
  */
 function generateCode(source:string, target:string, table:any) {
   console.log(`[generateCode] ${target}`);
+  
   const dirs = fs.readdirSync(source);
-
   dirs.forEach((dir:string) => {
     if(config.ignoreFiles.indexOf(dir) > 0){  
       return;
     }
-    const outputPath = path.join(target, dir);
     const tempPath = path.join(source, dir);
     const stats = fs.statSync(tempPath);
 
@@ -29,12 +28,14 @@ function generateCode(source:string, target:string, table:any) {
       if(dir.endsWith(config.general.suffix)) { // .temp
         const rule = config.general.suffix;
         let subName = toBigCamelCase(dir.replace(rule, ''));
-        const outputFile = path.join(target, `${table.tableName}${subName}`);
-        if (!fs.existsSync(outputFile)) { // 
+        const outputFile = path.join(target, `${toLittleCamelCase(table.tableName)}${subName}`);
+        
+        if (!fs.existsSync(outputFile)) {
           generateFile(tempPath, outputFile, table);
         }
+      } else if (dir.endsWith(config.column.suffix)) { 
       } else if (dir.endsWith('')) { 
-        // 等待以后扩展新规则
+        
       } else {
         // 其他的都属于配置，只用复制黏贴
         const outputConfig = path.join(target, dir);
@@ -44,6 +45,7 @@ function generateCode(source:string, target:string, table:any) {
         }
       }
     } else {
+      const outputPath = path.join(target, dir);
       generateCode(tempPath, outputPath, table);
     }
   });
@@ -58,8 +60,7 @@ function generateCode(source:string, target:string, table:any) {
  */
 export function generateFile(source:string, target:string, data:any):void{
   console.log(`[generateFile] ${target}`);
-  const code = render(source, data);
-  write(target, code);
+  write(target, render(source, data));
 }
 
 export default generateCode;

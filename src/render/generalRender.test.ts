@@ -1,4 +1,4 @@
-import {removeComment,replaceKey,replaceList} from './simpleRender';
+import {removeComment,replaceKey,replaceList} from './generalRender';
 
 test('removeComment', () => {
   expect(removeComment('<#-- just test remove comment --> '))
