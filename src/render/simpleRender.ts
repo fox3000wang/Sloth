@@ -13,11 +13,21 @@ function loadTemplate(path:string):string {
   return file.toString();
 }
 
-function removeComment(code:string):string {
+/**
+ * 移除注释包括后面的换行
+ * @param code 
+ */
+export function removeComment(code:string):string {
   return code.replace(/(<#--)([.\s\S]*?)(-->)\s/g, '');
 }
 
-function replaceKey(code:string, key:string, value:string):string {
+/**
+ * 从code里找到key,用value替换
+ * @param code 
+ * @param key 
+ * @param value 
+ */
+export function replaceKey(code:string, key:string, value:string):string {
   // 默认小写下滑线
   let reg = new RegExp(`#{${key}}`, 'g');
   code = code.replace(reg, value);
@@ -37,11 +47,11 @@ function replaceKey(code:string, key:string, value:string):string {
   return code;
 }
 
-function replaceList(code:string, key:string, value:[]):string {
+export function replaceList(code:string, key:string, value:Array<any>):string {
   const reg = new RegExp(`<#list ${key}>([.\\s\\S]*?)(</#list>)`, 'g');
   code = code.replace(reg, (...[, $1]) => {
     let result:string = '';
-    value.forEach(element => {
+    value.forEach((element:any) => {
       result += $1.replace(/\n/, '');
       Object.keys(element).map(key => {
         result = replaceKey(result, `${config.dataSource}\\.${key}`, element[key]);
@@ -53,7 +63,7 @@ function replaceList(code:string, key:string, value:[]):string {
   return code;
 }
 
-function render(template:string, data:any):string {
+export function render(template:string, data:any):string {
   let code:string = loadTemplate(template);
   code = removeComment(code);
   code.toUpperCase;
