@@ -15,3 +15,4 @@ export function toBigCamelCase(code:string):string{
   code = toLittleCamelCase(code);
   return code.replace(/^./, ($0) => $0.toUpperCase());
 }
+

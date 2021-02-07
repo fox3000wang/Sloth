@@ -108,3 +108,5 @@ dist
 output/
 
 .DS_Store
+
+yarn.lock

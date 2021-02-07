@@ -84,3 +84,11 @@ class User {
 nodemon 修改模板引擎的时候热更新代码重新部署
 
 watch 修改模板的时候，实时输出代码
+
+### 测试
+
+参考：https://basarat.gitbook.io/typescript/intro-1/jest
+
+```bash
+npm run test
+```
