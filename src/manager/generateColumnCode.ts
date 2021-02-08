@@ -6,7 +6,7 @@ import { loadFile } from '../render/generalRender';
 import columnRender, { removeColumnComment } from '../render/columnRender';
 import write from '../../src/writer/simpleWriter';
 
-const column:any = {};
+let column:any = {};
 
 function generateColumnCode(source:string, target:string, tableName:string) {
   console.log(`[generatecolumnCode] ${target}`);
@@ -16,6 +16,7 @@ function generateColumnCode(source:string, target:string, tableName:string) {
   Object.keys(column).map(path => {
     write(path, removeColumnComment(column[path]));
   });
+  
 }
 
 function traverse(source:string, target:string, tableName:string){

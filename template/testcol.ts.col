@@ -1,4 +1,13 @@
 
+  #l{tableName}:the#b{tableName}Reducer // #{tableName} 
+
+#l{tableName}:the#b{tableName}Reducer // #{tableName}
+
+add#b{tableName} = delete#b{tableName}
+
+
+
+
 // #{tableName}
 
 

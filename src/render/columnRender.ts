@@ -1,24 +1,21 @@
 import { toBigCamelCase, toLittleCamelCase } from '../utils/stringUtil';
+import { replaceKey } from './generalRender';
+
 
 function columnRender(code:string, key:string, value:string):string {
+
+  let lineReg = new RegExp(`(.*?#.?{${key}.*?})+\n`, 'g');
+  code = code.replace(lineReg, $0 => {
+    console.log(`######### ${$0}`);
+    return `${$0}${replaceKey($0, key, value)}`;
+  });
   
-  let reg = new RegExp(`#{${key}}`, 'g');
-  code = code.replace(reg, $0 => `${$0}\n${value}`);
-
-  reg = new RegExp(`#u{${key}}`, 'g');
-  code = code.replace(reg, $0 => `${$0}\n${value.toUpperCase()}`);
-
-  reg = new RegExp(`#l{${key}}`, 'g');
-  code = code.replace(reg, $0 => `${$0}\n${toLittleCamelCase(value)}`);
-
-  reg = new RegExp(`#b{${key}}`, 'g');
-  code = code.replace(reg, $0 => `${$0}\n${toBigCamelCase(value)}`);
 
   return code;
 }
 
 export function removeColumnComment(code:string){
-  return code.replace(/(\/\/)(.*)(#)(.?)({)([.\s\S]*?)(})([.\s\S]*?)\s/g, '');
+  return code.replace(/(.*)(#)(.?)({)([.\s\S]*?)(})([.\s\S]*?)\n/g, '');
 }
 
 export default columnRender;

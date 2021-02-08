@@ -1,10 +1,4 @@
 import {replaceKey,replaceList} from './generalRender';
-import { removeComment } from './regularTools';
-
-test('removeComment', () => {
-  expect(removeComment('<#-- just test remove comment --> '))
-  .toBe('');
-});
 
 test('replaceKey with normal', () => {
   expect(replaceKey('I,m #{name}!', 'name', 'gi_gi'))

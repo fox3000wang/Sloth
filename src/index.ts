@@ -43,6 +43,7 @@ watch.watchTree(config.template, function (file:string, curr:any, prev:any) {
     }
     if(file.endsWith(config.column.suffix)){
       // reloadData(file); 这里还有bug
+      main(); 
     }
   }
 });
