@@ -1,4 +1,4 @@
-import {replaceKey,replaceList} from './generalRender';
+import { replaceKey, replaceList } from '../../src/render/generalRender';
 
 test('replaceKey with normal', () => {
   expect(replaceKey('I,m #{name}!', 'name', 'gi_gi'))

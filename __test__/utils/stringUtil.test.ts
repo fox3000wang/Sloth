@@ -1,4 +1,4 @@
-import { toLittleCamelCase, toBigCamelCase, toLineCase } from './stringUtil';
+import { toLittleCamelCase, toBigCamelCase, toLineCase } from '../../src/utils/stringUtil';
 
 test('toLittleCamelCase', () => {
   expect(toLittleCamelCase('hello_world_my_jest'))

@@ -11,10 +11,13 @@ function #b{tableName}(props: any) {
 
   return (
     <div>
+      <div onClick={() => history.push('/')}>返回</div>
+      <div> ------------------------------------ </div>
 <#list table>
       <div>
-        <div>#{table.comment}</div>
-        <div>#l{table.name}</div>
+          <span>#{table.comment}</span>
+          <span>#l{table.name}</span>
+        
       </div>
 </#list>
     </div>
