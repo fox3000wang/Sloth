@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import config from '../config';
-import { toBigCamelCase, toLittleCamelCase } from '../utils/stringUtil';
 import { loadFile } from '../render/generalRender';
 import columnRender, { removeColumnComment } from '../render/columnRender';
 import write from '../../src/writer/simpleWriter';

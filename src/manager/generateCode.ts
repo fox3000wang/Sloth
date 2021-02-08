@@ -1,10 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import config from '../config';
-import render, { loadFile } from '../render/generalRender';
+import render from '../render/generalRender';
 import { toBigCamelCase, toLittleCamelCase } from '../utils/stringUtil';
 import write from '../writer/simpleWriter';
-
 
 /**
  * 递归所有模板生成代码
@@ -35,7 +34,6 @@ function generateCode(source:string, target:string, table:any) {
         }
       } else if (dir.endsWith(config.column.suffix)) { 
         // 
-      // } else if (dir.endsWith('')) {         
       } else {
         // 其他的都属于配置，只用复制黏贴
         const outputConfig = path.join(target, dir);
@@ -50,7 +48,6 @@ function generateCode(source:string, target:string, table:any) {
     }
   });
 }
-
 
 /**
  * 生成一个文件

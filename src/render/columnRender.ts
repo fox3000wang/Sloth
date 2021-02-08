@@ -1,4 +1,3 @@
-import { toBigCamelCase, toLittleCamelCase } from '../utils/stringUtil';
 import { replaceKey } from './generalRender';
 
 function columnRender(code:string, key:string, value:string):string {
@@ -15,30 +14,3 @@ export function removeColumnComment(code:string){
 }
 
 export default columnRender;
-
-const testCase:string = `
-
-// #{tableName}
-record_cn
-dict_cn
-user
-
-
-// #u{tableName}
-RECORD_CN
-DICT_CN
-USER
-
-
-// #l{tableName}
-recordCn
-dictCn
-user
-
-
-// #b{tableName}
-RecordCn
-DictCn
-User
-`;
-//console.log(removeColumnComment(testCase));

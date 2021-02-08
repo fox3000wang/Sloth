@@ -12,6 +12,9 @@ function cleanOutput(target:string):Promise<any> {
   if(!target){
     throw Error(`target can't be null`);
   }
+  if (!fs.existsSync(target)) {
+    fs.mkdirSync(target);
+  }
 
   return new Promise(resolve => {
     const dirs = fs.readdirSync(target);
