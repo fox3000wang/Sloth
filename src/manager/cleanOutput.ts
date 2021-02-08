@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import config from '../config';
-import shell from 'shelljs';
 
 /**
  * 清理输出目录
@@ -23,7 +22,6 @@ function cleanOutput(target:string):Promise<any> {
       const stats = fs.statSync(outputPath);
       if (stats.isFile()) {
         fs.unlinkSync(outputPath);
-        //shell.rm('-f', outputPath);
       } else {
         if (!isignore(outputPath)) {
           cleanOutput(outputPath);
