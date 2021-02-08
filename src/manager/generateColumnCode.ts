@@ -16,7 +16,6 @@ function generateColumnCode(source:string, target:string, tableName:string) {
   Object.keys(column).map(path => {
     write(path, removeColumnComment(column[path]));
   });
-  
 }
 
 function traverse(source:string, target:string, tableName:string){

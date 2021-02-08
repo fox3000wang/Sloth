@@ -1,5 +1,5 @@
 
-  #l{tableName}:the#b{tableName}Reducer // #{tableName} 
+  #l{tableName}:the#b{tableName}Reducer // #{tableName}_for test 
 
 #l{tableName}:the#b{tableName}Reducer // #{tableName}
 
@@ -8,7 +8,7 @@ add#b{tableName} = delete#b{tableName}
 
 
 
-// #{tableName}
+  // #{tableName}
 
 
 // #u{tableName}
