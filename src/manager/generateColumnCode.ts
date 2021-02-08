@@ -8,6 +8,10 @@ import write from '../../src/writer/simpleWriter';
 
 let column:any = {};
 
+export function cleanColumnCode(){
+  column = {};
+}
+
 function generateColumnCode(source:string, target:string, tableName:string) {
   console.log(`[generatecolumnCode] ${target}`);
   

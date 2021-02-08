@@ -5,7 +5,7 @@ import cleanOutput from './manager/cleanOutput';
 import makeOutputDir from './manager/makeOutputDir';
 import generateCode, {generateFile} from './manager/generateCode';
 import { toBigCamelCase } from './utils/stringUtil';
-import generateColumnCode from './manager/generateColumnCode';
+import generateColumnCode, { cleanColumnCode } from './manager/generateColumnCode';
 
 let xlsxData:any;
 
@@ -13,7 +13,7 @@ async function main() {
   console.log(`[main] ---------- build start. ----------`);
   
   if (config.autoClean) {
-    cleanOutput(config.output);
+    await cleanOutput(config.output);
   }
   makeOutputDir(config.template, config.output);
 
@@ -33,18 +33,25 @@ watch.watchTree(config.template, function (file:string, curr:any, prev:any) {
     // Finished walking the tree
   } else if (prev === null) {
     // f is a new file
+    cleanColumnCode();
+    main(); 
   } else if (curr.nlink === 0) {
     // f was removed
   } else {
     // f was changed
     console.log(`[watch.watchTree] file was changed`);
-    if(file.endsWith(config.general.suffix)){
-      reloadData(file);
-    }
-    if(file.endsWith(config.column.suffix)){
-      // reloadData(file); 这里还有bug
-      main(); 
-    }
+    cleanColumnCode();
+    main(); 
+
+    // if(file.endsWith(config.general.suffix)){
+    //   cleanColumnCode();
+    //   main(); 
+    // }
+    // if(file.endsWith(config.column.suffix)){
+    //   // reloadData(file); 这里还有bug
+    //   cleanColumnCode();
+    //   main(); 
+    // }
   }
 });
 

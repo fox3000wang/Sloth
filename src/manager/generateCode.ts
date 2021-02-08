@@ -34,8 +34,8 @@ function generateCode(source:string, target:string, table:any) {
           generateFile(tempPath, outputFile, table);
         }
       } else if (dir.endsWith(config.column.suffix)) { 
-      } else if (dir.endsWith('')) { 
-        
+        // 
+      // } else if (dir.endsWith('')) {         
       } else {
         // 其他的都属于配置，只用复制黏贴
         const outputConfig = path.join(target, dir);

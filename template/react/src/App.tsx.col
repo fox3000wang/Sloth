@@ -1,0 +1,16 @@
+import React from 'react';
+import { BrowserRouter, HashRouter, Switch, Route } from 'react-router-dom';
+import Home from './pages/home.tsx';
+import #b{tableName} from './pages/#l{tableName}Page';
+
+export default function App() {
+  return (
+    <HashRouter>
+      <Switch>
+        <Route path='/#l{tableName}'><#b{tableName} /></Route>
+        <Route path='/'><Home /></Route>
+        <Route path='*' render={() => <h1>404</h1>}></Route>
+      </Switch>
+    </HashRouter>
+  );
+}

@@ -1,6 +1,6 @@
-import { ADD_#u{tableName}, DELETE_#u{tableName}, SET_#u{tableName}, GET_#u{tableName}} from '../types';
+import { ADD_#u{tableName}, DELETE_#u{tableName}, SET_#u{tableName}, GET_#u{tableName} } from '../action/#l{tableName}Action';
 
-export const chineseReducer = (state: any = page, action: any) => {
+export const #l{tableName}Reducer = (state: any, action: any) => {
   switch (action.type) {
     case ADD_#u{tableName}:
       return {

@@ -1,20 +1,13 @@
 import thunk from 'redux-thunk';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { dictionaryReducer } from './reducers/dictionary';
-import { chineseReducer } from './reducers/chinese';
-import { recordReducer } from './reducers/record';
+import { #l{tableName}Reducer} from '../reducer/#l{tableName}Reducer';
 
-let rootReducer = combineReducers({
-  // TODO: 新的规则
-  #l{tableName}:#l{tableName}Reducer
-  
-  dictionary: dictionaryReducer, //字典表管理
-  chinesePage: chineseReducer, // 中文
-  record: recordReducer, // 学习记录
+const rootReducer = combineReducers({
+  #l{tableName}:#l{tableName}Reducer,
 });
 
-let store = createStore(
+const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
