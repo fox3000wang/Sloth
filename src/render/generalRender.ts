@@ -5,21 +5,12 @@
   注释 <#-- 和 -->
 */
 import fs from 'fs';
-import { toLittleCamelCase, toBigCamelCase } from '../utils/stringUtil';
 import config from '../config';
+import { removeComment, toNormal, toUpper, toLittleCamel, toBigCamel } from './regularTools';
 
 export function loadFile(path:string):string {
   const file = fs.readFileSync(path);
-  //console.log(`[loadFile] ${file.toString()}`);
   return file.toString();
-}
-
-/**
- * 移除注释包括后面的换行
- * @param code 
- */
-export function removeComment(code:string):string {
-  return code.replace(/(<#--)([.\s\S]*?)(-->)\s/g, '');
 }
 
 /**
@@ -28,23 +19,9 @@ export function removeComment(code:string):string {
  * @param key 
  * @param value 
  */
+const operators = [toNormal, toUpper, toLittleCamel, toBigCamel];
 export function replaceKey(code:string, key:string, value:string):string {
-  // 默认小写下滑线
-  let reg = new RegExp(`#{${key}}`, 'g');
-  code = code.replace(reg, value);
-
-  // 大写下滑线 UpperCase
-  reg = new RegExp(`#u{${key}}`, 'g');
-  code = code.replace(reg, value.toUpperCase());
-
-  // 小驼峰 little camel-case
-  reg = new RegExp(`#l{${key}}`, 'g');
-  code = code.replace(reg, toLittleCamelCase(value));
-
-  // 大驼峰 big camel-case
-  reg = new RegExp(`#b{${key}}`, 'g');
-  code = code.replace(reg, toBigCamelCase(value));
-
+  operators.forEach((fn:Function) => code = fn(code, key, value));
   return code;
 }
 
