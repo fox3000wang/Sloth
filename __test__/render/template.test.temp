@@ -1,0 +1,4 @@
+#{tableName}
+<#list table>
+#l{table.name}:#{table.property}; //#{table.comment}
+</#list>

@@ -6,12 +6,7 @@
 */
 import fs from 'fs';
 import config from '../config';
-import { removeComment, toNormal, toUpper, toLittleCamel, toBigCamel } from './regularTools';
-
-export function loadFile(path:string):string {
-  const file = fs.readFileSync(path);
-  return file.toString();
-}
+import { removeComment, toNormal, toUpper, toLittleCamel, toBigCamel, fileToString } from '../utils/stringUtil';
 
 /**
  * 从code里找到key,用value替换
@@ -42,9 +37,9 @@ export function replaceList(code:string, key:string, value:Array<any>):string {
 }
 
 function render(template:string, data:any):string {
-  let code:string = loadFile(template);
+  let code:string = fileToString(template);
   code = removeComment(code);
-  code.toUpperCase;
+  //code.toUpperCase; // why？
 
   Object.keys(data).map(key => {
     const value = data[key];
@@ -52,7 +47,9 @@ function render(template:string, data:any):string {
     if (typeof value === 'string') {
       code = replaceKey(code, key, value);
     }
+
     if ({}.toString.call(value) === '[object Array]') {
+      console.log(`[render] ${code}, ${key}, ${value}`);
       code = replaceList(code, key, value);
     }
   });

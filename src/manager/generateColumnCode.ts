@@ -1,9 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 import config from '../config';
-import { loadFile } from '../render/generalRender';
 import columnRender, { removeColumnComment } from '../render/columnRender';
 import write from '../../src/writer/simpleWriter';
+import { fileToString } from '../utils/stringUtil';
 
 let column:any = {};
 
@@ -37,7 +37,7 @@ function traverse(source:string, target:string, tableName:string){
         let subName = dir.replace(config.column.suffix, '');
         const outputFile = path.join(target, `${subName}`);
         if(!column[outputFile]){
-          column[outputFile] = loadFile(tempPath);
+          column[outputFile] = fileToString(tempPath);
         }
         let code = column[outputFile];
         code = columnRender(code, config.dataSourceName, tableName);
