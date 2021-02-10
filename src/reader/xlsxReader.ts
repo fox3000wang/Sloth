@@ -15,9 +15,6 @@ import XLSX from 'XLSX';
  * @param file
  */
 function readXlsx(file:string) {
-  if (!file) {
-    throw new Error(`elsx file is null!`);
-  }
 
   //const cellIndex = ['A', 'B', 'C', 'D', 'E', 'F', 'G' ... 'Z'];
   const cellIndex = [...Array(26)].map((e, i) => String.fromCharCode(65 + i));
